@@ -27,32 +27,62 @@ namespace lab7
         void SortByParam(bool isAsc);
     }
 
-    public class Array : IOutput, IMath, ISort
+    interface ICalc
+    {
+        int Less(int valueToCompare);
+        int Greater(int valueToCompare);
+    }
+
+    public class Array : IOutput, IMath, ISort, ICalc
     {
         public int[] array { get; set; }
 
+        private void Init(uint n, int a, int b)
+        {
+            this.array = new int[n];
+            if (a > b)
+            {
+                int tmp = a;
+                a = b;
+                b = tmp;
+            }
+            Random rand = new Random();
+            for (int i = 0; i < this.array.Length; i++)
+            {
+                this.array[i] = rand.Next(a, b);
+            }
+        }
+        private void Init(uint n)
+        {
+            this.array = new int[n];
+            Random rand = new Random();
+            for (int i = 0; i < this.array.Length; i++)
+            {
+                this.array[i] = rand.Next(10);
+            }
+        }
+        private void Init()
+        {
+            this.array = new int[5];
+            Random rand = new Random();
+            for (int i = 0; i < this.array.Length; i++)
+            {
+                this.array[i] = rand.Next(10);
+            }
+        }
+
         public Array()
         {
-            array = new int[5];
+            Init();
         }
-
-        public Array(int n)
+        public Array(uint n)
         {
-            array = new int[n];
-            Random rand = new Random();
-            for (int i = 0; i < n; i++)
-            {
-                array[i] = rand.Next(9) + 1;
-            }
+            Init(n);
         }
-
         public Array(int[] arr)
         {
-            array = new int[arr.Length];
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = arr[i];
-            }
+            this.array = new int[arr.Length];
+            arr.CopyTo(this.array, 0);
         }
 
         public void Show()
@@ -63,7 +93,6 @@ namespace lab7
             }
             Console.WriteLine();
         }
-
         public void Show(string info)
         {
             Show();
@@ -82,7 +111,6 @@ namespace lab7
             }
             return max;
         }
-
         public int Min()
         {
             if (array != null && array.Length == 0)
@@ -95,7 +123,6 @@ namespace lab7
             }
             return min;
         }
-
         public float Avg()
         {
             if (array != null && array.Length == 0)
@@ -105,7 +132,6 @@ namespace lab7
                 sum += i;
             return (sum / (float)array.Length);
         }
-
         public bool Search(int valueToSearch)
         {
             foreach (int i in array)
@@ -131,7 +157,6 @@ namespace lab7
 
             } while (change);
         }
-
         public void SortDesc()
         {
             bool change;
@@ -149,13 +174,33 @@ namespace lab7
 
             } while (change);
         }
-
         public void SortByParam(bool isAsc)
         {
             if (isAsc)
                 SortAsc();
             else
                 SortDesc();
+        }
+
+        public int Less(int valueToCompare)
+        {
+            int res = 0;
+            foreach (int i in array)
+            {
+                if (i < valueToCompare)
+                    res++;
+            }
+            return res;
+        }
+        public int Greater(int valueToCompare)
+        {
+            int res = 0;
+            foreach (int i in array)
+            {
+                if (i > valueToCompare)
+                    res++;
+            }
+            return res;
         }
     }
 }
