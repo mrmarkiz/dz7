@@ -33,7 +33,7 @@ namespace lab7
         int Greater(int valueToCompare);
     }
 
-    public class Array : IOutput, IMath, ISort, ICalc
+    public class MyArray : IOutput, IMath, ISort, ICalc
     {
         public int[] array { get; set; }
 
@@ -71,15 +71,15 @@ namespace lab7
             }
         }
 
-        public Array()
+        public MyArray()
         {
             Init();
         }
-        public Array(uint n)
+        public MyArray(uint n)
         {
             Init(n);
         }
-        public Array(int[] arr)
+        public MyArray(int[] arr)
         {
             this.array = new int[arr.Length];
             arr.CopyTo(this.array, 0);

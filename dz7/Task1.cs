@@ -8,5 +8,6 @@ namespace dz7
 {
     internal class Task1
     {
+
     }
 }
