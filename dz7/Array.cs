@@ -39,7 +39,13 @@ namespace lab7
         void ShowOdd();
     }
 
-    public class MyArray : IOutput, IMath, ISort, ICalc, IOutput2
+    interface ICalc2
+    {
+        int CountDistinct();
+        int EqualToValue(int valueToCompare);
+    }
+
+    public class MyArray : IOutput, IMath, ISort, ICalc, IOutput2, ICalc2
     {
         public int[] array { get; set; }
 
@@ -218,7 +224,6 @@ namespace lab7
             }
             Console.WriteLine();
         }
-
         public void ShowOdd()
         {
             foreach (int i in array)
@@ -227,6 +232,19 @@ namespace lab7
                     Console.Write($"{i} ");
             }
             Console.WriteLine();
+        }
+
+        public int CountDistinct()
+        {
+            return array.Distinct().Count();
+        }
+        public int EqualToValue(int valueToCompare)
+        {
+            int res = 0;
+            foreach (int i in array)
+                if (i == valueToCompare)
+                    res++;
+            return res;
         }
     }
 }
