@@ -33,7 +33,13 @@ namespace lab7
         int Greater(int valueToCompare);
     }
 
-    public class MyArray : IOutput, IMath, ISort, ICalc
+    interface IOutput2
+    {
+        void ShowEven();
+        void ShowOdd();
+    }
+
+    public class MyArray : IOutput, IMath, ISort, ICalc, IOutput2
     {
         public int[] array { get; set; }
 
@@ -201,6 +207,26 @@ namespace lab7
                     res++;
             }
             return res;
+        }
+
+        public void ShowEven()
+        {
+            foreach (int i in array)
+            {
+                if (i % 2 == 0) 
+                    Console.Write($"{i} ");
+            }
+            Console.WriteLine();
+        }
+
+        public void ShowOdd()
+        {
+            foreach (int i in array)
+            {
+                if (i % 2 == 1)
+                    Console.Write($"{i} ");
+            }
+            Console.WriteLine();
         }
     }
 }
